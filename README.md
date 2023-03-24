@@ -11,7 +11,29 @@ This CLI is meant to provide a single unified interface for removing image tags 
 
 ## Quick start
 
-TODO
+Use one of the following to download the `dkr-rm-tag` CLI:
+
+- Downloading one of the pre-compiled binaries from the [releases page](/releases).
+- Building from source using `go`:
+
+      go install github.com/fensak-io/dkr-rm-tag/cmd/dkr-rm-tag@latest
+
+Once you have the CLI installed, you can run the command to remove a tag from one of the supported registries. For
+example, to remove the `user/myrepo:some-tag` tag from Docker Hub:
+
+```
+  export DOCKER_HUB_TOKEN='....your personal access token...'
+dkr-rm-tag --tag 'user/myrepo:some-tag' --docker-hub-username user
+```
+
+Alternatively, to remove from `ghcr.io`:
+
+```
+  export GITHUB_TOKEN='...your personal access token...'
+dkr-rm-tag --tag 'ghcr.io/user/myrepo:some-tag'
+```
+
+Refer to `dkr-rm-tag --help` for all the available options by the command.
 
 
 ## Supported registries
