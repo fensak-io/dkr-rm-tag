@@ -1,0 +1,48 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./cmd/dkr-rm-tag
+    binary: dkr-rm-tag
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath #removes all file system paths from the compiled executable
+    ldflags:
+      - "-s -w -X github.com/fensak-io/dkr-rm-tag/version.Version={{.Version}}"
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+
+signs:
+  - id: dkrrmtag-keyless
+    artifacts: archive
+    signature: "${artifact}-keyless.sig"
+    certificate: "${artifact}-keyless.pem"
+    cmd: cosign
+    args: ["sign-blob", "--output-signature", "${artifact}-keyless.sig", "--output-certificate", "${artifact}-keyless.pem", "${artifact}"]
+  - id: checksum-keyless
+    artifacts: checksum
+    signature: "${artifact}-keyless.sig"
+    certificate: "${artifact}-keyless.pem"
+    cmd: cosign
+    args: ["sign-blob", "--output-signature", "${artifact}-keyless.sig", "--output-certificate", "${artifact}-keyless.pem", "${artifact}"]
+
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
+
+snapshot:
+  name_template: "SNAPSHOT-{{ .ShortCommit }}"
+
+release:
+  github:
+    owner: fensak-io
+    name: dkr-rm-tag
+  mode: keep-existing
