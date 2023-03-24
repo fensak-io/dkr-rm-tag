@@ -32,11 +32,15 @@ func init() {
 
 	pflags.String("docker-hub-token", "", "The token to use for authenticating to Docker Hub. Recommended to be passed in by environment variable (DOCKER_HUB_TOKEN).")
 	clistd.MustBindPFlag("docker_hub_token", pflags.Lookup("docker-hub-token"))
-	viper.BindEnv("docker_hub_token", "DOCKER_HUB_TOKEN")
+	if err := viper.BindEnv("docker_hub_token", "DOCKER_HUB_TOKEN"); err != nil {
+		panic(err)
+	}
 
 	pflags.String("github-token", "", "The token to use for authenticating to GitHub Container Registry. Recommended to be passed in by environment variable (GITHUB_TOKEN).")
 	clistd.MustBindPFlag("github_token", pflags.Lookup("github-token"))
-	viper.BindEnv("github_token", "GITHUB_TOKEN")
+	if err := viper.BindEnv("github_token", "GITHUB_TOKEN"); err != nil {
+		panic(err)
+	}
 }
 
 var rootCmd = &cobra.Command{
