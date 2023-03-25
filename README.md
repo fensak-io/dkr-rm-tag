@@ -1,5 +1,17 @@
 # dkr-rm-tag
 
+<p align="center">
+  <a href="https://github.com/fensak-io/dkr-rm-tag/blob/main/LICENSE">
+    <img alt="LICENSE" src="https://img.shields.io/github/license/fensak-io/dkr-rm-tag?style=for-the-badge">
+  </a>
+  <a href="https://github.com/fensak-io/dkr-rm-tag/actions/workflows/lint-and-test.yml?query=branch%3Amain">
+    <img alt="main branch CI" src="https://img.shields.io/github/actions/workflow/status/fensak-io/dkr-rm-tag/lint-and-test.yml?branch=main&logo=github&label=CI&style=for-the-badge">
+  </a>
+  <a href="https://github.com/fensak-io/dkr-rm-tag/releases/latest">
+    <img alt="latest release" src="https://img.shields.io/github/v/release/fensak-io/dkr-rm-tag?style=for-the-badge">
+  </a>
+</p>
+
 `dkr-rm-tag` is a Go based CLI that can be used to remove a specific Docker image tag from a target registry.
 
 Ideally, you would be able to use the `docker` CLI to implement this functionality, but as of March 24th, 2023, the
