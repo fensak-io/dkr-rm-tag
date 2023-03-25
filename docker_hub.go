@@ -2,6 +2,7 @@ package dkrrmtag
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 	"path"
 
@@ -62,11 +63,20 @@ func (r dkrHubRegistry) DeleteTag(ctx context.Context, req DeleteTagRequest) err
 		"tags",
 		req.ImgTag,
 	)
-	_, err := r.clt.R().
+	resp, err := r.clt.R().
 		SetContext(ctx).
 		SetAuthToken(r.token).
 		Delete(dkrHubAPIURL(urlpath))
-	return err
+	if err != nil {
+		return err
+	}
+	if resp.IsError() {
+		return fmt.Errorf(
+			"Received error status code making delete call to Docker: code %d, body %s",
+			resp.StatusCode(), string(resp.Body()),
+		)
+	}
+	return nil
 }
 
 // dkrHubAPIURL returns the full URL to the docker hub API given the relative path. This is hard coded to:

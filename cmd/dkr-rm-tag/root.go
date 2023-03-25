@@ -9,6 +9,7 @@ import (
 
 	dkrrmtag "github.com/fensak-io/dkr-rm-tag"
 	"github.com/fensak-io/gostd/clistd"
+	"github.com/fensak-io/gostd/logstd"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -52,6 +53,11 @@ var rootCmd = &cobra.Command{
 		if err := viper.Unmarshal(&opts); err != nil {
 			return err
 		}
+		if opts.Logger.Level != "" {
+			if err := opts.Logger.SetAtomicLevel(); err != nil {
+				return err
+			}
+		}
 
 		// Validate inputs
 		if opts.Tag == "" {
@@ -81,6 +87,11 @@ var rootCmd = &cobra.Command{
 			return fmt.Errorf("registry hosted at %s is not supported by dkr-rm-tag", parsed.Host)
 		}
 
+		logger := logstd.GetSugaredLogger(opts.Logger)
+		logger.Debugf(
+			"Deleting tag %s from repo %s/%s/%s",
+			parsed.Tag, parsed.Host, parsed.Owner, parsed.Name,
+		)
 		return reg.DeleteTag(ctx, parsed.AsDeleteTagRequest())
 	},
 }
