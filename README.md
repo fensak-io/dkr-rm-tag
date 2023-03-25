@@ -1,4 +1,4 @@
-# dkr-rm-tag
+<h1 align="center">dkr-rm-tag</h1>
 
 <p align="center">
   <a href="https://github.com/fensak-io/dkr-rm-tag/blob/main/LICENSE">
