@@ -7,11 +7,12 @@ import (
 	"os"
 	"time"
 
-	dkrrmtag "github.com/fensak-io/dkr-rm-tag"
-	"github.com/fensak-io/gostd/clistd"
-	"github.com/fensak-io/gostd/logstd"
+	"github.com/illumitacit/gostd/clistd"
+	"github.com/illumitacit/gostd/logstd"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	dkrrmtag "github.com/fensak-io/dkr-rm-tag"
 )
 
 func init() {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fensak-io/gostd/logstd"
+	"github.com/illumitacit/gostd/logstd"
 )
 
 type cmdOpts struct {
